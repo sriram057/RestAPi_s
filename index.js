@@ -2,7 +2,7 @@ const blogImageURL = document.getElementById("url");
 const blogTitle = document.getElementById("title");
 const blogDescription = document.getElementById("description");
 let totalBlogs = 0;
-const serverURL = "https://crudcrud.com/api/27c60dea026946dc9b4b99471e8a4eff/Blog"; 
+const serverURL = "https://crudcrud.com/api/d4a82289595d4345a923f750e59aadea/Blog"; 
 
 // Form submit 
 function handleBlogSubmit(event) {
@@ -81,9 +81,12 @@ function displayBlogDetailsOnDashboard(blogDetails) {
     blogImageURL.value = blogDetails.imageURL;
     blogTitle.value = blogDetails.title;
     blogDescription.value = blogDetails.description;
-    ul.removeChild(event.target.parentElement);
+    
     axios.delete(`${serverURL}/${blogDetails._id}`)
         .then((result) => {
+          ul.removeChild(event.target.parentElement);
+          totalBlogs--;
+        displayBlogsValue();
             console.log(result);
         }).catch((err) => {
             console.error(err);
